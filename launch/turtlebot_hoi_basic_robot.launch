@@ -1,0 +1,30 @@
+<launch>
+    <!-- Configurable arguments -->
+    <arg name="robot_name" default="turtlebot"/>
+
+    <!-- Static transform -->
+    <node name="realsense_color" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 camera_color_optical_frame $(arg robot_name)/kobuki/realsense_color 100"/>
+    <node name="realsense_depth" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 camera_depth_optical_frame $(arg robot_name)/kobuki/realsense_depth 100"/>
+
+    <!-- Namespace with robot name -->
+    <group ns="$(arg robot_name)">
+        <!-- RVIZ -->
+        <node pkg="rviz" type="rviz" name="rviz" args="-d $(find turtlebot_description)/rviz/hoi_basic.rviz"/>
+
+    </group>
+
+    <!-- AruCo detection node -->
+
+    <node pkg="hoi_prol" type="aruco_detection_robot.py" name="aruco_detection_robot" output="screen"/>
+
+    <!-- Dead reckoning -->
+    <node pkg="hoi_prol" type="dead_reckoning_robot.py" name="dead_reconing" output="screen"/>
+    <!-- <node name="map_to_base_transform" pkg="tf2_ros" type="static_transform_publisher" args="0 0 0 0 0 0 world turtlebot/kobuki/base_footprint 100"/> -->
+
+    <!-- transfereing Twist to robot -->
+    <node pkg="hoi_prol" type="twist_robot.py" name="twist_robot"/>
+
+    <!-- Arm kinmatics -->
+    <node pkg="hoi_prol" type="compute_kinematics_turtlebot.py" name="compute_kinematics_turtlebot" output="screen"/>
+    
+</launch>
