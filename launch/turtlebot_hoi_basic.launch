@@ -36,7 +36,7 @@
         </node>
 
         <!-- RVIZ -->
-        <node pkg="rviz" type="rviz" name="rviz" args="-d $(find turtlebot_description)/rviz/hoi_basic.rviz"/>
+        <node pkg="rviz" type="rviz" name="rviz" args="-d $(find hoi_prol)/rviz/hoi_basic.rviz"/>
 
     </group>
 
