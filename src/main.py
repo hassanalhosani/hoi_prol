@@ -21,8 +21,6 @@ import matplotlib.pyplot as plt
 
 class task_priority():
     def __init__(self, theta, theta2, theta3, theta4):
-        # Initialize ROS node
-        rospy.init_node('task_priority_node', anonymous=True)
         
         # Set the weight matrix
         self.we = np.diag([1, 1, 1, 1, 1, 1])
